@@ -5,25 +5,24 @@ using System.Threading.Tasks;
 using System.Windows;
 using Avalonia.Controls;
 using Avalonia;
+using REMod.Models;
 
 namespace REMod.Dialogs
 {
-    public class OpenFolder
+    public class ModSettings
     {
         private readonly Window mainWindow;
-        private readonly OpenFolderDialog dialogWindow;
+        private readonly ModSettingsDialog dialogWindow;
         public TaskCompletionSource<bool> Confirmed = new();
 
-        public OpenFolder(string title, GameType selectedGameType, string selectedGamePath, Window window)
+        public ModSettings(string title, GameType selectedGameType, string selectedGamePath, ModItem item, Window window)
         {
-            dialogWindow = new OpenFolderDialog(selectedGameType, selectedGamePath)
+            dialogWindow = new ModSettingsDialog(selectedGameType, selectedGamePath, item)
             {
                 Title = title
             };
             dialogWindow.Title = title;
-            dialogWindow.OpenModFolder_CardAction.Click += OnClick;
-            dialogWindow.OpenDownloadFolder_CardAction.Click += OnClick;
-            dialogWindow.OpenGameFolder_CardAction.Click += OnClick;
+            dialogWindow.Confirm_Button.Click += OnClick;
             dialogWindow.Cancel_Button.Click += OnClick;
             dialogWindow.Closed += Close;
             mainWindow = window;

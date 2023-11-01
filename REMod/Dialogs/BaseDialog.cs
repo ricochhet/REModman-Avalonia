@@ -9,11 +9,11 @@ namespace REMod.Dialogs
 {
     public class BaseDialog
     {
-        private readonly UserControl mainWindow;
+        private readonly Window mainWindow;
         private readonly BaseDialogWindow dialogWindow;
         public TaskCompletionSource<bool> Confirmed = new();
 
-        public BaseDialog(string title, string content, UserControl window)
+        public BaseDialog(string title, string content, Window window)
         {
             dialogWindow = new BaseDialogWindow
             {
