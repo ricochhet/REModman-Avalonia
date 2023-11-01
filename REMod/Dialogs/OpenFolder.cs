@@ -10,11 +10,11 @@ namespace REMod.Dialogs
 {
     public class OpenFolder
     {
-        private readonly WindowBase mainWindow;
+        private readonly UserControl mainWindow;
         private readonly OpenFolderDialog dialogWindow;
         public TaskCompletionSource<bool> Confirmed = new();
 
-        public OpenFolder(string title, GameType selectedGameType, string selectedGamePath, WindowBase window)
+        public OpenFolder(string title, GameType selectedGameType, string selectedGamePath, UserControl window)
         {
             dialogWindow = new OpenFolderDialog(selectedGameType, selectedGamePath)
             {

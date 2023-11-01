@@ -1,0 +1,33 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:models="using:REMod.Models"
+        x:DataType="models:ModItem"
+        x:CompileBindings="True"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="REMod.Views.HomePage"
+        Width="1100"
+        Height="650">
+        <Panel>
+            <ContentControl x:Name="mainContentControl" />
+            <ExperimentalAcrylicBorder IsHitTestVisible="False">
+                <ExperimentalAcrylicBorder.Material>
+                    <ExperimentalAcrylicMaterial
+                        BackgroundSource="Digger"
+                        TintColor="Black"
+                        TintOpacity="1"
+                        MaterialOpacity="0.65" />
+                </ExperimentalAcrylicBorder.Material>
+            </ExperimentalAcrylicBorder>
+            <Grid Margin="42" VerticalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button FontSize="14" Grid.Column="0" Margin="8,0,0,8" Padding="16,13,16,12" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="GotoCollectionPage_Click">Collection</Button>
+                <Button FontSize="14" Grid.Column="1" Margin="8,0,8,8" Padding="16,13,16,12" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">Settings</Button>
+            </Grid>
+        </Panel>
+</UserControl>
