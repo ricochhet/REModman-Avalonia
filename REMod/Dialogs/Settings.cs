@@ -5,19 +5,18 @@ using System.Threading.Tasks;
 using System.Windows;
 using Avalonia.Controls;
 using Avalonia;
-using REMod.Models;
 
 namespace REMod.Dialogs
 {
-    public class ModSettings
+    public class Settings
     {
         private readonly Window m_Window;
-        private readonly ModSettingsDialog m_Dialog;
+        private readonly SettingsDialog m_Dialog;
         public TaskCompletionSource<bool> Confirmed = new();
 
-        public ModSettings(string title, GameType selectedGameType, string selectedGamePath, ModItem item, Window window)
+        public Settings(string title, Window window)
         {
-            m_Dialog = new ModSettingsDialog(selectedGameType, selectedGamePath, item)
+            m_Dialog = new SettingsDialog()
             {
                 Title = title
             };
@@ -35,7 +34,8 @@ namespace REMod.Dialogs
             m_Dialog.Show();
         }
 
-        private void Close(object? sender, EventArgs e) {
+        private void Close(object? sender, EventArgs e) 
+        {
             m_Window.IsEnabled = true;
             m_Dialog.Close();
         }
@@ -52,7 +52,6 @@ namespace REMod.Dialogs
             }
 
             LogBase.Info($"Closing dialog box: {m_Dialog.Title}");
-            m_Window.IsEnabled = true;
             m_Dialog.Close();
         }
     }

@@ -1,0 +1,35 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:models="using:REMod.Models"
+        x:DataType="models:ModItem"
+        x:CompileBindings="True"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="REMod.Dialogs.SettingsDialog"
+        Title="SettingsDialog"
+        Width="420"
+        MinWidth="419"
+        MaxWidth="421"
+        Height="222"
+        MinHeight="221"
+        MaxHeight="223"
+        Topmost="True"
+        WindowStartupLocation="CenterScreen"
+        TransparencyLevelHint="AcrylicBlur">
+
+        <Panel>
+            <StackPanel>
+                <Button Grid.Row="0" HorizontalAlignment="Stretch" Name="DeleteData_CardAction" Click="DeleteData_CardAction_Click">Delete Data</Button>
+            </StackPanel>
+            <Grid Margin="16,0,16,4" VerticalAlignment="Bottom">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Name="Confirm_Button">Confirm</Button>
+                <Button Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Name="Cancel_Button">Cancel</Button>
+            </Grid>
+        </Panel>
+</Window>

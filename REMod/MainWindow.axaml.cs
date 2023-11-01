@@ -196,6 +196,12 @@ namespace REMod
             }
         }
 
+        private void Settings_CardAction_Click(object sender, RoutedEventArgs e)
+        {
+            Settings confirmDialog = new("Settings", this);
+            confirmDialog.Show();
+        }
+
         private void OpenFolder_CardAction_Click(object sender, RoutedEventArgs e)
         {
             if (selectedGameType != GameType.None)

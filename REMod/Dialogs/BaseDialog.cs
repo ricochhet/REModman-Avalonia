@@ -9,39 +9,39 @@ namespace REMod.Dialogs
 {
     public class BaseDialog
     {
-        private readonly Window mainWindow;
-        private readonly BaseDialogWindow dialogWindow;
+        private readonly Window m_Window;
+        private readonly BaseDialogWindow m_Dialog;
         public TaskCompletionSource<bool> Confirmed = new();
 
         public BaseDialog(string title, string content, Window window)
         {
-            dialogWindow = new BaseDialogWindow
+            m_Dialog = new BaseDialogWindow
             {
                 Title = title
             };
-            dialogWindow.Title = title;
-            dialogWindow.Content_TextBlock.Text = content;
-            dialogWindow.Confirm_Button.Click += OnClick;
-            dialogWindow.Cancel_Button.Click += OnClick;
-            dialogWindow.Closed += Close;
-            mainWindow = window;
+            m_Dialog.Title = title;
+            m_Dialog.Content_TextBlock.Text = content;
+            m_Dialog.Confirm_Button.Click += OnClick;
+            m_Dialog.Cancel_Button.Click += OnClick;
+            m_Dialog.Closed += Close;
+            m_Window = window;
         }
 
         public void Show()
         {
-            LogBase.Info($"Opening dialog box: {dialogWindow.Title} - {dialogWindow.Content_TextBlock.Text}");
-            mainWindow.IsEnabled = false;
-            dialogWindow.Show();
+            LogBase.Info($"Opening dialog box: {m_Dialog.Title} - {m_Dialog.Content_TextBlock.Text}");
+            m_Window.IsEnabled = false;
+            m_Dialog.Show();
         }
 
         private void Close(object? sender, EventArgs e) {
-            mainWindow.IsEnabled = true;
-            dialogWindow.Close();
+            m_Window.IsEnabled = true;
+            m_Dialog.Close();
         }
 
         private void OnClick(object? sender, EventArgs e)
         {
-            if (sender == dialogWindow.Confirm_Button)
+            if (sender == m_Dialog.Confirm_Button)
             {
                 Confirmed.SetResult(true);
             }
@@ -50,9 +50,9 @@ namespace REMod.Dialogs
                 Confirmed.SetResult(false);
             }
 
-            LogBase.Info($"Closing dialog box: {dialogWindow.Title} - {dialogWindow.Content_TextBlock.Text}");
-            mainWindow.IsEnabled = true;
-            dialogWindow.Close();
+            LogBase.Info($"Closing dialog box: {m_Dialog.Title} - {m_Dialog.Content_TextBlock.Text}");
+            m_Window.IsEnabled = true;
+            m_Dialog.Close();
         }
     }
 }

@@ -24,6 +24,7 @@ namespace REMod.Dialogs
             dialogWindow.OpenModFolder_CardAction.Click += OnClick;
             dialogWindow.OpenDownloadFolder_CardAction.Click += OnClick;
             dialogWindow.OpenGameFolder_CardAction.Click += OnClick;
+            dialogWindow.Confirm_Button.Click += OnClick;
             dialogWindow.Cancel_Button.Click += OnClick;
             dialogWindow.Closed += Close;
             mainWindow = window;
