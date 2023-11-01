@@ -46,9 +46,18 @@ namespace REMod.Core.Plugins
 
                 Directory.CreateDirectory(directory);
 
-                if (File.GetAttributes(mod.BasePath).HasFlag(FileAttributes.Directory))
+                if (
+                    File.GetAttributes(mod.BasePath)
+                        .HasFlag(FileAttributes.Directory)
+                )
                 {
-                    RisePakPatch.ProcessDirectory(new DirectoryInfo(mod.BasePath).FullName, Path.Combine(directory, PathHelper.MakeValid(mod.Name) + ".pak"));
+                    RisePakPatch.ProcessDirectory(
+                        new DirectoryInfo(mod.BasePath).FullName,
+                        Path.Combine(
+                            directory,
+                            PathHelper.MakeValid(mod.Name) + ".pak"
+                        )
+                    );
                 }
             }
         }

@@ -15,19 +15,30 @@ namespace REMod.Dialogs
 {
     public partial class SettingsDialog : Window
     {
-        public SettingsDialog() 
+        public SettingsDialog()
         {
             InitializeComponent();
         }
 
-        private async void DeleteData_CardAction_Click(object sender, RoutedEventArgs e)
+        private async void DeleteData_CardAction_Click(
+            object sender,
+            RoutedEventArgs e
+        )
         {
-            BaseDialog confirmDialog = new("Mod Manager", $"This action is irreversible, are you sure?", this);
+            BaseDialog confirmDialog =
+                new(
+                    "Mod Manager",
+                    $"This action is irreversible, are you sure?",
+                    this
+                );
             confirmDialog.Show();
 
             if (await confirmDialog.Confirmed.Task)
             {
-                DataProvider.Delete(FolderType.Data, ManagerSettings.GetLastSelectedGame());
+                DataProvider.Delete(
+                    FolderType.Data,
+                    ManagerSettings.GetLastSelectedGame()
+                );
             }
         }
     }

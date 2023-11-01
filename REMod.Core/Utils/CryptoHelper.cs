@@ -17,7 +17,10 @@ namespace REMod.Core.Utils
                     using SHA256 sha256 = SHA256.Create();
                     using FileStream fs = File.OpenRead(pathToFile);
                     byte[] hash = sha256.ComputeHash(fs);
-                    return BitConverter.ToString(hash).Replace("-", string.Empty).ToLowerInvariant();
+                    return BitConverter
+                        .ToString(hash)
+                        .Replace("-", string.Empty)
+                        .ToLowerInvariant();
                 }
 
                 return string.Empty;
@@ -30,7 +33,10 @@ namespace REMod.Core.Utils
                     using MD5 md5 = MD5.Create();
                     using FileStream fs = File.OpenRead(pathToFile);
                     byte[] hash = md5.ComputeHash(fs);
-                    return BitConverter.ToString(hash).Replace("-", string.Empty).ToLowerInvariant();
+                    return BitConverter
+                        .ToString(hash)
+                        .Replace("-", string.Empty)
+                        .ToLowerInvariant();
                 }
 
                 return string.Empty;
@@ -79,13 +85,18 @@ namespace REMod.Core.Utils
             {
                 StringBuilder builder = new();
                 Enumerable
-                   .Range(65, 26)
+                    .Range(65, 26)
                     .Select(e => ((char)e).ToString())
-                    .Concat(Enumerable.Range(97, 26).Select(e => ((char)e).ToString()))
+                    .Concat(
+                        Enumerable
+                            .Range(97, 26)
+                            .Select(e => ((char)e).ToString())
+                    )
                     .Concat(Enumerable.Range(0, 10).Select(e => e.ToString()))
                     .OrderBy(e => Guid.NewGuid())
                     .Take(11)
-                    .ToList().ForEach(e => builder.Append(e));
+                    .ToList()
+                    .ForEach(e => builder.Append(e));
 
                 return builder.ToString();
             }

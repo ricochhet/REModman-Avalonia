@@ -6,12 +6,13 @@ namespace REMod.Core.Resolvers
 {
     public class FolderTypeResolver
     {
-        public static string Folder(FolderType type) => type switch
-        {
-            FolderType.Data => FolderTypeStruct.Data,
-            FolderType.Mods => FolderTypeStruct.Mods,
-            FolderType.Downloads => FolderTypeStruct.Downloads,
-            _ => throw new NotImplementedException(),
-        };
+        public static string Folder(FolderType type) =>
+            type switch
+            {
+                FolderType.Data => FolderTypeStruct.Data,
+                FolderType.Mods => FolderTypeStruct.Mods,
+                FolderType.Downloads => FolderTypeStruct.Downloads,
+                _ => throw new NotImplementedException(),
+            };
     }
 }

@@ -21,7 +21,7 @@ namespace REMod.Dialogs
         private static string selectedGamePath = string.Empty;
         private static ModItem item = new();
 
-        public ModSettingsDialog() 
+        public ModSettingsDialog()
         {
             InitializeComponent();
         }
@@ -42,7 +42,12 @@ namespace REMod.Dialogs
 
             if (selectedGameType != GameType.None)
             {
-                if (!RisePakPatchExtension.IsPatchable(selectedGameType, item.Hash))
+                if (
+                    !RisePakPatchExtension.IsPatchable(
+                        selectedGameType,
+                        item.Hash
+                    )
+                )
                 {
                     button.IsEnabled = false;
                 }
@@ -53,21 +58,37 @@ namespace REMod.Dialogs
             }
         }
 
-        private async void PatchMod_Button_Click(object sender, RoutedEventArgs e)
+        private async void PatchMod_Button_Click(
+            object sender,
+            RoutedEventArgs e
+        )
         {
             if (sender is not Button)
                 return;
 
             if (selectedGameType != GameType.None)
             {
-                if (RisePakPatchExtension.IsPatchable(selectedGameType, item.Hash))
+                if (
+                    RisePakPatchExtension.IsPatchable(
+                        selectedGameType,
+                        item.Hash
+                    )
+                )
                 {
-                    BaseDialog confirmDialog = new("Mod Manager", $"{StringHelper.Truncate(item.Name, 38)} can be converted to a PAK mod, proceed?", this);
+                    BaseDialog confirmDialog =
+                        new(
+                            "Mod Manager",
+                            $"{StringHelper.Truncate(item.Name, 38)} can be converted to a PAK mod, proceed?",
+                            this
+                        );
                     confirmDialog.Show();
 
                     if (await confirmDialog.Confirmed.Task)
                     {
-                        RisePakPatchExtension.Patch(selectedGameType, item.Hash);
+                        RisePakPatchExtension.Patch(
+                            selectedGameType,
+                            item.Hash
+                        );
                     }
                 }
             }
@@ -80,11 +101,17 @@ namespace REMod.Dialogs
 
             if (selectedGameType != GameType.None)
             {
-                numberBox.Value = ModInstaller.GetLoadOrder(selectedGameType, item.Hash);
+                numberBox.Value = ModInstaller.GetLoadOrder(
+                    selectedGameType,
+                    item.Hash
+                );
             }
         }
 
-        private void LoadOrder_NumberBox_ValueChanged(object sender, NumericUpDownValueChangedEventArgs e)
+        private void LoadOrder_NumberBox_ValueChanged(
+            object sender,
+            NumericUpDownValueChangedEventArgs e
+        )
         {
             if (sender is not NumericUpDown numberBox)
                 return;
@@ -93,12 +120,19 @@ namespace REMod.Dialogs
             {
                 if (numberBox.Value != null)
                 {
-                    ModInstaller.SetLoadOrder(selectedGameType, item.Hash, (int)numberBox.Value);
+                    ModInstaller.SetLoadOrder(
+                        selectedGameType,
+                        item.Hash,
+                        (int)numberBox.Value
+                    );
                 }
             }
         }
 
-        private async void DeleteMod_Button_Click(object sender, RoutedEventArgs e)
+        private async void DeleteMod_Button_Click(
+            object sender,
+            RoutedEventArgs e
+        )
         {
             if (sender is not Button)
                 return;
@@ -107,7 +141,12 @@ namespace REMod.Dialogs
             {
                 if (Directory.Exists(selectedGamePath))
                 {
-                    BaseDialog confirmDialog = new("Mod Manager", $"Do you want to delete mod {StringHelper.Truncate(item.Name, 38)} for {ManagerSettings.GetLastSelectedGame()}?", this);
+                    BaseDialog confirmDialog =
+                        new(
+                            "Mod Manager",
+                            $"Do you want to delete mod {StringHelper.Truncate(item.Name, 38)} for {ManagerSettings.GetLastSelectedGame()}?",
+                            this
+                        );
                     confirmDialog.Show();
 
                     if (await confirmDialog.Confirmed.Task)
@@ -117,7 +156,12 @@ namespace REMod.Dialogs
                 }
                 else
                 {
-                    BaseDialog dialog = new("Mod Manager", $"{selectedGameType} has not been correctly configured.", this);
+                    BaseDialog dialog =
+                        new(
+                            "Mod Manager",
+                            $"{selectedGameType} has not been correctly configured.",
+                            this
+                        );
                     dialog.Show();
                 }
             }

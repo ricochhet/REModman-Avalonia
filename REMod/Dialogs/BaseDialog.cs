@@ -15,10 +15,7 @@ namespace REMod.Dialogs
 
         public BaseDialog(string title, string content, Window window)
         {
-            m_Dialog = new BaseDialogWindow
-            {
-                Title = title
-            };
+            m_Dialog = new BaseDialogWindow { Title = title };
             m_Dialog.Title = title;
             m_Dialog.Content_TextBlock.Text = content;
             m_Dialog.Confirm_Button.Click += OnClick;
@@ -29,12 +26,15 @@ namespace REMod.Dialogs
 
         public void Show()
         {
-            LogBase.Info($"Opening dialog box: {m_Dialog.Title} - {m_Dialog.Content_TextBlock.Text}");
+            LogBase.Info(
+                $"Opening dialog box: {m_Dialog.Title} - {m_Dialog.Content_TextBlock.Text}"
+            );
             m_Window.IsEnabled = false;
             m_Dialog.Show();
         }
 
-        private void Close(object? sender, EventArgs e) {
+        private void Close(object? sender, EventArgs e)
+        {
             m_Window.IsEnabled = true;
             m_Dialog.Close();
         }
@@ -50,7 +50,9 @@ namespace REMod.Dialogs
                 Confirmed.SetResult(false);
             }
 
-            LogBase.Info($"Closing dialog box: {m_Dialog.Title} - {m_Dialog.Content_TextBlock.Text}");
+            LogBase.Info(
+                $"Closing dialog box: {m_Dialog.Title} - {m_Dialog.Content_TextBlock.Text}"
+            );
             m_Window.IsEnabled = true;
             m_Dialog.Close();
         }

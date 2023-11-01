@@ -39,7 +39,8 @@ namespace REMod
         }
 
         private ItemsControl? itemsControl;
-        private void PopulateItemsControl() 
+
+        private void PopulateItemsControl()
         {
             if (itemsControl == null)
                 return;
@@ -48,26 +49,36 @@ namespace REMod
 
             if (selectedGameType != GameType.None)
             {
-                if (DataProvider.Exists(FolderType.Data, selectedGameType) && DataProvider.Exists(FolderType.Mods, selectedGameType))
+                if (
+                    DataProvider.Exists(FolderType.Data, selectedGameType)
+                    && DataProvider.Exists(FolderType.Mods, selectedGameType)
+                )
                 {
                     List<ModData> index = ManagerCache.Build(selectedGameType);
                     ManagerCache.SaveHashChanges(selectedGameType, index);
 
                     foreach (ModData mod in index)
                     {
-                        ModCollection.Add(new ModItem
-                        {
-                            Name = mod.Name,
-                            Hash = mod.Hash,
-                            IsEnabled = mod.IsEnabled,
-                        });
+                        ModCollection.Add(
+                            new ModItem
+                            {
+                                Name = mod.Name,
+                                Hash = mod.Hash,
+                                IsEnabled = mod.IsEnabled,
+                            }
+                        );
                     }
 
                     itemsControl.ItemsSource = ModCollection;
                 }
                 else
                 {
-                    BaseDialog dialog = new("Configuration Error", $"{ManagerSettings.GetLastSelectedGame()} has not been correctly configured.", this);
+                    BaseDialog dialog =
+                        new(
+                            "Configuration Error",
+                            $"{ManagerSettings.GetLastSelectedGame()} has not been correctly configured.",
+                            this
+                        );
                     dialog.Show();
                 }
             }
@@ -82,7 +93,9 @@ namespace REMod
                     DataProvider.Create(FolderType.Mods, selectedGameType);
                 }
 
-                if (!DataProvider.Exists(FolderType.Downloads, selectedGameType))
+                if (
+                    !DataProvider.Exists(FolderType.Downloads, selectedGameType)
+                )
                 {
                     DataProvider.Create(FolderType.Downloads, selectedGameType);
                 }
@@ -95,11 +108,11 @@ namespace REMod
         }
 
         private Grid? toolBar_Grid_Grid;
+
         private void ToolBar_Grid_Visibility()
         {
             if (toolBar_Grid_Grid == null)
                 return;
-
 
             if (selectedGameType != GameType.None)
             {
@@ -122,6 +135,7 @@ namespace REMod
         }
 
         private Button? setupGame_CardAction_Button;
+
         private void SetupGame_CardAction_Visibility()
         {
             if (setupGame_CardAction_Button == null)
@@ -149,7 +163,8 @@ namespace REMod
 
         private void ModsItemsControl_Initialized(object sender, EventArgs e)
         {
-            if (sender is ItemsControl ic) {
+            if (sender is ItemsControl ic)
+            {
                 itemsControl = ic;
                 if (selectedGameType != GameType.None)
                 {
@@ -158,14 +173,21 @@ namespace REMod
             }
         }
 
-        private void GameSelector_ComboBox_Initialize(object sender, EventArgs e)
+        private void GameSelector_ComboBox_Initialize(
+            object sender,
+            EventArgs e
+        )
         {
-            if (sender is ComboBox comboBox) {
+            if (sender is ComboBox comboBox)
+            {
                 comboBox.Items.Clear();
                 comboBox.ItemsSource = Enum.GetValues(typeof(GameType));
-                comboBox.SelectedIndex = (int)ManagerSettings.GetLastSelectedGame();
+                comboBox.SelectedIndex = (int)
+                    ManagerSettings.GetLastSelectedGame();
                 selectedGameType = ManagerSettings.GetLastSelectedGame();
-                selectedGamePath = ManagerSettings.GetGamePath(selectedGameType);
+                selectedGamePath = ManagerSettings.GetGamePath(
+                    selectedGameType
+                );
 
                 CheckSelectedGameState();
             }
@@ -173,21 +195,33 @@ namespace REMod
 
         private void ToolBar_Grid_Initialize(object sender, EventArgs e)
         {
-            if (sender is Grid grid) {
+            if (sender is Grid grid)
+            {
                 toolBar_Grid_Grid = grid;
                 ToolBar_Grid_Visibility();
             }
         }
 
-        private void GameSelector_ComboBox_DropDownClosed(object sender, EventArgs e)
+        private void GameSelector_ComboBox_DropDownClosed(
+            object sender,
+            EventArgs e
+        )
         {
             if (GameSelector_ComboBox.SelectedItem != null)
             {
-                selectedGameType = (GameType)Enum.Parse(typeof(GameType), GameSelector_ComboBox.SelectedItem.ToString() ?? GameType.None.ToString());
+                selectedGameType = (GameType)
+                    Enum.Parse(
+                        typeof(GameType),
+                        GameSelector_ComboBox.SelectedItem.ToString()
+                            ?? GameType.None.ToString()
+                    );
                 ManagerSettings.SaveLastSelectedGame(selectedGameType);
 
-                GameSelector_ComboBox.SelectedIndex = (int)ManagerSettings.GetLastSelectedGame();
-                selectedGamePath = ManagerSettings.GetGamePath(selectedGameType);
+                GameSelector_ComboBox.SelectedIndex = (int)
+                    ManagerSettings.GetLastSelectedGame();
+                selectedGamePath = ManagerSettings.GetGamePath(
+                    selectedGameType
+                );
 
                 ToolBar_Grid_Visibility();
                 SetupGame_CardAction_Visibility();
@@ -202,11 +236,20 @@ namespace REMod
             confirmDialog.Show();
         }
 
-        private void OpenFolder_CardAction_Click(object sender, RoutedEventArgs e)
+        private void OpenFolder_CardAction_Click(
+            object sender,
+            RoutedEventArgs e
+        )
         {
             if (selectedGameType != GameType.None)
             {
-                OpenFolder confirmDialog = new("Open Folder", selectedGameType, selectedGamePath, this);
+                OpenFolder confirmDialog =
+                    new(
+                        "Open Folder",
+                        selectedGameType,
+                        selectedGamePath,
+                        this
+                    );
                 confirmDialog.Show();
             }
         }
@@ -222,21 +265,33 @@ namespace REMod
             }
         }
 
-        private void SetupGame_CardAction_Initialized(object sender, EventArgs e)
+        private void SetupGame_CardAction_Initialized(
+            object sender,
+            EventArgs e
+        )
         {
-            if (sender is Button button) {
+            if (sender is Button button)
+            {
                 setupGame_CardAction_Button = button;
                 SetupGame_CardAction_Visibility();
             }
         }
 
-        private void SetupGame_CardAction_Click(object sender, RoutedEventArgs e)
+        private void SetupGame_CardAction_Click(
+            object sender,
+            RoutedEventArgs e
+        )
         {
             if (selectedGameType != GameType.None)
             {
                 if (!ProcessHelper.IsProcRunning(selectedGameType))
                 {
-                    BaseDialog dialog = new("Mod Manager", $"{selectedGameType} must be running to start the setup process.", this);
+                    BaseDialog dialog =
+                        new(
+                            "Mod Manager",
+                            $"{selectedGameType} must be running to start the setup process.",
+                            this
+                        );
                     dialog.Show();
 
                     ToolBar_Grid_Visibility();
@@ -247,7 +302,12 @@ namespace REMod
                 else
                 {
                     ManagerSettings.SaveGamePath(selectedGameType);
-                    BaseDialog dialog = new("Mod Manager", $"Setup has been completed for {selectedGameType}.", this);
+                    BaseDialog dialog =
+                        new(
+                            "Mod Manager",
+                            $"Setup has been completed for {selectedGameType}.",
+                            this
+                        );
                     dialog.Show();
 
                     ToolBar_Grid_Visibility();
@@ -258,11 +318,16 @@ namespace REMod
             }
         }
 
-        private void EnableMod_ToggleSwitch_Checked(object sender, RoutedEventArgs e)
+        private void EnableMod_ToggleSwitch_Checked(
+            object sender,
+            RoutedEventArgs e
+        )
         {
             ToggleSwitch? toggle = sender as ToggleSwitch;
 
-            if (toggle?.Tag is ModItem item && selectedGameType != GameType.None)
+            if (
+                toggle?.Tag is ModItem item && selectedGameType != GameType.None
+            )
             {
                 if (Directory.Exists(selectedGamePath))
                 {
@@ -270,17 +335,27 @@ namespace REMod
                 }
                 else
                 {
-                    BaseDialog dialog = new("Mod Manager", $"{selectedGameType} has not been correctly configured.", this);
+                    BaseDialog dialog =
+                        new(
+                            "Mod Manager",
+                            $"{selectedGameType} has not been correctly configured.",
+                            this
+                        );
                     dialog.Show();
                 }
             }
         }
 
-        private void EnableMod_ToggleSwitch_Unchecked(object sender, RoutedEventArgs e)
+        private void EnableMod_ToggleSwitch_Unchecked(
+            object sender,
+            RoutedEventArgs e
+        )
         {
             ToggleSwitch? toggle = sender as ToggleSwitch;
 
-            if (toggle?.Tag is ModItem item && selectedGameType != GameType.None)
+            if (
+                toggle?.Tag is ModItem item && selectedGameType != GameType.None
+            )
             {
                 if (Directory.Exists(selectedGamePath))
                 {
@@ -288,7 +363,12 @@ namespace REMod
                 }
                 else
                 {
-                    BaseDialog dialog = new("Mod Manager", $"{selectedGameType} has not been correctly configured.", this);
+                    BaseDialog dialog =
+                        new(
+                            "Mod Manager",
+                            $"{selectedGameType} has not been correctly configured.",
+                            this
+                        );
                     dialog.Show();
                 }
             }
@@ -298,9 +378,18 @@ namespace REMod
         {
             Button? button = sender as Button;
 
-            if (button?.Tag is ModItem item && selectedGameType != GameType.None)
+            if (
+                button?.Tag is ModItem item && selectedGameType != GameType.None
+            )
             {
-                ModSettings dialog = new("Mod Manager", selectedGameType, selectedGamePath, item, this);
+                ModSettings dialog =
+                    new(
+                        "Mod Manager",
+                        selectedGameType,
+                        selectedGamePath,
+                        item,
+                        this
+                    );
                 dialog.Show();
             }
         }

@@ -11,18 +11,22 @@ namespace REMod.Core.Manager
         {
             string appId = type switch
             {
-                GameType.MonsterHunterRise => Constants.MONSTER_HUNTER_RISE_APP_ID,
-                GameType.MonsterHunterWorld => Constants.MONSTER_HUNTER_WORLD_APP_ID,
+                GameType.MonsterHunterRise
+                    => Constants.MONSTER_HUNTER_RISE_APP_ID,
+                GameType.MonsterHunterWorld
+                    => Constants.MONSTER_HUNTER_WORLD_APP_ID,
                 _ => throw new NotImplementedException(),
             };
 
             try
             {
-                _ = Process.Start(new ProcessStartInfo()
-                {
-                    FileName = $"steam://run/{appId}",
-                    UseShellExecute = true
-                });
+                _ = Process.Start(
+                    new ProcessStartInfo()
+                    {
+                        FileName = $"steam://run/{appId}",
+                        UseShellExecute = true
+                    }
+                );
             }
             catch (Exception err)
             {

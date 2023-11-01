@@ -16,10 +16,7 @@ namespace REMod.Dialogs
 
         public Settings(string title, Window window)
         {
-            m_Dialog = new SettingsDialog()
-            {
-                Title = title
-            };
+            m_Dialog = new SettingsDialog() { Title = title };
             m_Dialog.Title = title;
             m_Dialog.Confirm_Button.Click += OnClick;
             m_Dialog.Cancel_Button.Click += OnClick;
@@ -34,7 +31,7 @@ namespace REMod.Dialogs
             m_Dialog.Show();
         }
 
-        private void Close(object? sender, EventArgs e) 
+        private void Close(object? sender, EventArgs e)
         {
             m_Window.IsEnabled = true;
             m_Dialog.Close();

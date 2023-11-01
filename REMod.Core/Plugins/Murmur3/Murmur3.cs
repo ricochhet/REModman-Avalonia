@@ -4,7 +4,11 @@ namespace REMod.Core.Plugins.Murmur3
 {
     public class Murmur3
     {
-        public static uint MurmurHash3_x86_32(byte[] data, uint length, uint seed)
+        public static uint MurmurHash3_x86_32(
+            byte[] data,
+            uint length,
+            uint seed
+        )
         {
             uint num = length >> 2;
             uint num2 = seed;
@@ -66,7 +70,13 @@ namespace REMod.Core.Plugins.Murmur3
             {
                 array[num] = (byte)num;
                 uint value = MurmurHash3_x86_32(array, num, 256 - num);
-                Buffer.BlockCopy(BitConverter.GetBytes(value), 0, array2, (int)(num * 4), 4);
+                Buffer.BlockCopy(
+                    BitConverter.GetBytes(value),
+                    0,
+                    array2,
+                    (int)(num * 4),
+                    4
+                );
             }
             uint num2 = MurmurHash3_x86_32(array2, 1024u, 0u);
             uint num3 = 2968878819u;

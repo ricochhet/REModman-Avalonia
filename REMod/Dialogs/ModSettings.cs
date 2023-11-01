@@ -15,9 +15,19 @@ namespace REMod.Dialogs
         private readonly ModSettingsDialog m_Dialog;
         public TaskCompletionSource<bool> Confirmed = new();
 
-        public ModSettings(string title, GameType selectedGameType, string selectedGamePath, ModItem item, Window window)
+        public ModSettings(
+            string title,
+            GameType selectedGameType,
+            string selectedGamePath,
+            ModItem item,
+            Window window
+        )
         {
-            m_Dialog = new ModSettingsDialog(selectedGameType, selectedGamePath, item)
+            m_Dialog = new ModSettingsDialog(
+                selectedGameType,
+                selectedGamePath,
+                item
+            )
             {
                 Title = title
             };
@@ -35,7 +45,8 @@ namespace REMod.Dialogs
             m_Dialog.Show();
         }
 
-        private void Close(object? sender, EventArgs e) {
+        private void Close(object? sender, EventArgs e)
+        {
             m_Window.IsEnabled = true;
             m_Dialog.Close();
         }

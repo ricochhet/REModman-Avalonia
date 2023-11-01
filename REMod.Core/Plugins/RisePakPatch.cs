@@ -10,11 +10,16 @@ namespace REMod.Core.Plugins
 {
     public class RisePakPatch
     {
-        public static void ProcessDirectory(string path, string outputFile = "re_chunk_000.pak.patch_001.pak")
+        public static void ProcessDirectory(
+            string path,
+            string outputFile = "re_chunk_000.pak.patch_001.pak"
+        )
         {
             string directory = new DirectoryInfo(path).FullName;
 
-            if (!File.GetAttributes(directory).HasFlag(FileAttributes.Directory))
+            if (
+                !File.GetAttributes(directory).HasFlag(FileAttributes.Directory)
+            )
             {
                 return;
             }
@@ -25,10 +30,16 @@ namespace REMod.Core.Plugins
                 File.Delete(outputFile);
             }
 
-            string[] sortedFiles = Directory.GetFiles(Path.Combine(directory, "natives"), "*.*", SearchOption.AllDirectories)
+            string[] sortedFiles = Directory
+                .GetFiles(
+                    Path.Combine(directory, "natives"),
+                    "*.*",
+                    SearchOption.AllDirectories
+                )
                 .OrderBy(Path.GetDirectoryName)
                 .ThenBy(p => p.Count(c => c == Path.PathSeparator))
-                .ThenBy(Path.GetFileNameWithoutExtension).ToArray();
+                .ThenBy(Path.GetFileNameWithoutExtension)
+                .ToArray();
 
             LogBase.Info($"Processing {sortedFiles.Length} files...\n");
 
@@ -70,7 +81,9 @@ namespace REMod.Core.Plugins
 
             foreach (FileEntry item in list)
             {
-                LogBase.Info($"{item.filename}, {item.filenameLower}, {item.filenameUpper}");
+                LogBase.Info(
+                    $"{item.filename}, {item.filenameLower}, {item.filenameUpper}"
+                );
 
                 writer.WriteUInt32(item.filenameLower);
                 writer.WriteUInt32(item.filenameUpper);
@@ -87,7 +100,8 @@ namespace REMod.Core.Plugins
 
         private static uint GetHash(string m_String, uint seed)
         {
-            using MemoryStream stream = new(Encoding.Unicode.GetBytes(m_String));
+            using MemoryStream stream =
+                new(Encoding.Unicode.GetBytes(m_String));
             return MurMurHash3.Hash(stream, seed);
         }
     }

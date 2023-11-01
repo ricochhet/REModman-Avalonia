@@ -7,17 +7,23 @@ namespace REMod.Core.Plugins.BinaryOperations
 {
     public class Functions
     {
-        public static bool CompareBytes(byte[] Arg0, byte[] Arg1) => Conversions.ObjectToHex(Arg0) == Conversions.ObjectToHex(Arg1);
+        public static bool CompareBytes(byte[] Arg0, byte[] Arg1) =>
+            Conversions.ObjectToHex(Arg0) == Conversions.ObjectToHex(Arg1);
 
-        public static int FileLen(string FilePath) => checked((int)new FileInfo(FilePath).Length);
+        public static int FileLen(string FilePath) =>
+            checked((int)new FileInfo(FilePath).Length);
 
-        public static string GetRatio(long Arg0, long Arg1) => (Arg0 / (double)Arg1).ToString("#.##") + "%";
+        public static string GetRatio(long Arg0, long Arg1) =>
+            (Arg0 / (double)Arg1).ToString("#.##") + "%";
 
-        public static bool IsNumeric(long Numeric) => new Regex("^[0-9]+\\d").IsMatch(Numeric.ToString());
+        public static bool IsNumeric(long Numeric) =>
+            new Regex("^[0-9]+\\d").IsMatch(Numeric.ToString());
 
-        public static bool IsValidHex(string Hex) => new Regex("^[A-Fa-f0-9]*$", RegexOptions.IgnoreCase).IsMatch(Hex);
+        public static bool IsValidHex(string Hex) =>
+            new Regex("^[A-Fa-f0-9]*$", RegexOptions.IgnoreCase).IsMatch(Hex);
 
-        public static bool IsValidUnicode(string Unicode) => Unicode.Length == LenB(Unicode);
+        public static bool IsValidUnicode(string Unicode) =>
+            Unicode.Length == LenB(Unicode);
 
         public static int LenB(string ObjStr)
         {
@@ -29,9 +35,17 @@ namespace REMod.Core.Plugins.BinaryOperations
             return 0;
         }
 
-        public static byte[] RemoveAt(byte[] Bytes, int Index) => Conversions.HexToByteArray(Conversions.ObjectToHex(Bytes).Remove(Index, 2));
+        public static byte[] RemoveAt(byte[] Bytes, int Index) =>
+            Conversions.HexToByteArray(
+                Conversions.ObjectToHex(Bytes).Remove(Index, 2)
+            );
 
-        public static byte[] RemoveByte(byte[] Bytes, byte ByteToRemove) => Conversions.HexToByteArray(Conversions.ObjectToHex(Bytes).Replace(ByteToRemove.ToString(), ""));
+        public static byte[] RemoveByte(byte[] Bytes, byte ByteToRemove) =>
+            Conversions.HexToByteArray(
+                Conversions
+                    .ObjectToHex(Bytes)
+                    .Replace(ByteToRemove.ToString(), "")
+            );
 
         public static Array ReverseArray(Array Buffer)
         {
@@ -61,9 +75,11 @@ namespace REMod.Core.Plugins.BinaryOperations
                 throw new IndexOutOfRangeException();
             }
 
-            return (ByteCount / 1024.0 / 1024.0 / 1024.0).ToString("#.##") + " gb";
+            return (ByteCount / 1024.0 / 1024.0 / 1024.0).ToString("#.##")
+                + " gb";
         }
 
-        public static byte[] SwapSex(byte[] Buffer) => (byte[])ReverseArray(Buffer);
+        public static byte[] SwapSex(byte[] Buffer) =>
+            (byte[])ReverseArray(Buffer);
     }
 }

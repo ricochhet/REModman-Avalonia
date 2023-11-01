@@ -4,9 +4,15 @@ namespace REMod.Core.Integrations
 {
     public class MTFrameworkDataPatch
     {
-        public readonly static string ModDirectory = "nativePC";
-        public static bool IsNatives(string directory) => directory == "nativePC";
-        public static bool HasNatives(string directory) => Directory.Exists(Path.Combine(directory, "nativePC"));
-        public static string GetRelativeFromNatives(FileInfo path) => "nativePC" + path.FullName.Split("nativePC")[1];
+        public static readonly string ModDirectory = "nativePC";
+
+        public static bool IsNatives(string directory) =>
+            directory == "nativePC";
+
+        public static bool HasNatives(string directory) =>
+            Directory.Exists(Path.Combine(directory, "nativePC"));
+
+        public static string GetRelativeFromNatives(FileInfo path) =>
+            "nativePC" + path.FullName.Split("nativePC")[1];
     }
 }

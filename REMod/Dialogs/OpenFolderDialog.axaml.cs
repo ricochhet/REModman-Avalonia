@@ -16,7 +16,7 @@ namespace REMod.Dialogs
         private static GameType selectedGameType = GameType.None;
         private static string selectedGamePath = string.Empty;
 
-        public OpenFolderDialog() 
+        public OpenFolderDialog()
         {
             InitializeComponent();
         }
@@ -29,51 +29,67 @@ namespace REMod.Dialogs
             InitializeComponent();
         }
 
-        private void OpenModFolder_CardAction_Click(object sender, RoutedEventArgs e)
+        private void OpenModFolder_CardAction_Click(
+            object sender,
+            RoutedEventArgs e
+        )
         {
             if (selectedGameType != GameType.None)
             {
                 if (DataProvider.Exists(FolderType.Mods, selectedGameType))
                 {
-                    ProcessStartInfo startInfo = new()
-                    {
-                        Arguments = PathHelper.GetAbsolutePath(PathResolver.ModPath(selectedGameType)),
-                        FileName = "explorer.exe",
-                    };
+                    ProcessStartInfo startInfo =
+                        new()
+                        {
+                            Arguments = PathHelper.GetAbsolutePath(
+                                PathResolver.ModPath(selectedGameType)
+                            ),
+                            FileName = "explorer.exe",
+                        };
 
                     Process.Start(startInfo);
                 }
             }
         }
 
-        private void OpenDownloadFolder_CardAction_Click(object sender, RoutedEventArgs e)
+        private void OpenDownloadFolder_CardAction_Click(
+            object sender,
+            RoutedEventArgs e
+        )
         {
             if (selectedGameType != GameType.None)
             {
                 if (DataProvider.Exists(FolderType.Mods, selectedGameType))
                 {
-                    ProcessStartInfo startInfo = new()
-                    {
-                        Arguments = PathHelper.GetAbsolutePath(PathResolver.DownloadPath(selectedGameType)),
-                        FileName = "explorer.exe",
-                    };
+                    ProcessStartInfo startInfo =
+                        new()
+                        {
+                            Arguments = PathHelper.GetAbsolutePath(
+                                PathResolver.DownloadPath(selectedGameType)
+                            ),
+                            FileName = "explorer.exe",
+                        };
 
                     Process.Start(startInfo);
                 }
             }
         }
 
-        private void OpenGameFolder_CardAction_Click(object sender, RoutedEventArgs e)
+        private void OpenGameFolder_CardAction_Click(
+            object sender,
+            RoutedEventArgs e
+        )
         {
             if (selectedGameType != GameType.None)
             {
                 if (Directory.Exists(selectedGamePath))
                 {
-                    ProcessStartInfo startInfo = new()
-                    {
-                        Arguments = selectedGamePath,
-                        FileName = "explorer.exe",
-                    };
+                    ProcessStartInfo startInfo =
+                        new()
+                        {
+                            Arguments = selectedGamePath,
+                            FileName = "explorer.exe",
+                        };
 
                     Process.Start(startInfo);
                 }

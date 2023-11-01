@@ -17,16 +17,22 @@ namespace REMod.Core.Providers
                 case FileType.Log:
                     throw new NotImplementedException();
                 case FileType.Cache:
-                    FsProvider.WriteFile(PathResolver.DataPath(game), PathResolver.IndexFile, "[]");
+                    FsProvider.WriteFile(
+                        PathResolver.DataPath(game),
+                        PathResolver.IndexFile,
+                        "[]"
+                    );
                     break;
                 case FileType.Settings:
                     if (!FsProvider.Exists(PathResolver.SettingsPath))
                     {
-                        ManagerSettings.Save(new SettingsData
-                        {
-                            LastSelectedGame = GameType.None,
-                            GamePaths = new Dictionary<string, string>()
-                        });
+                        ManagerSettings.Save(
+                            new SettingsData
+                            {
+                                LastSelectedGame = GameType.None,
+                                GamePaths = new Dictionary<string, string>()
+                            }
+                        );
                     }
                     break;
                 default:
@@ -34,7 +40,10 @@ namespace REMod.Core.Providers
             }
         }
 
-        public static void Create(FolderType type, GameType game = GameType.None)
+        public static void Create(
+            FolderType type,
+            GameType game = GameType.None
+        )
         {
             switch (type)
             {
@@ -74,7 +83,10 @@ namespace REMod.Core.Providers
             switch (type)
             {
                 case FolderType.Data:
-                    FsProvider.DeleteDirectory(PathResolver.DataPath(game), true);
+                    FsProvider.DeleteDirectory(
+                        PathResolver.DataPath(game),
+                        true
+                    );
                     break;
                 case FolderType.Mods:
                     throw new NotImplementedException();
@@ -85,20 +97,33 @@ namespace REMod.Core.Providers
             }
         }
 
-        public static bool Exists(FileType type, GameType game = GameType.None) => type switch
-        {
-            FileType.Log => FsProvider.Exists(PathResolver.LogPath),
-            FileType.Cache => FsProvider.Exists(PathResolver.IndexPath(game)),
-            FileType.Settings => FsProvider.Exists(PathResolver.SettingsPath),
-            _ => throw new NotImplementedException()
-        };
+        public static bool Exists(
+            FileType type,
+            GameType game = GameType.None
+        ) =>
+            type switch
+            {
+                FileType.Log => FsProvider.Exists(PathResolver.LogPath),
+                FileType.Cache
+                    => FsProvider.Exists(PathResolver.IndexPath(game)),
+                FileType.Settings
+                    => FsProvider.Exists(PathResolver.SettingsPath),
+                _ => throw new NotImplementedException()
+            };
 
-        public static bool Exists(FolderType type, GameType game = GameType.None) => type switch
-        {
-            FolderType.Data => FsProvider.Exists(PathResolver.DataPath(game)),
-            FolderType.Mods => FsProvider.Exists(PathResolver.ModPath(game)),
-            FolderType.Downloads => FsProvider.Exists(PathResolver.DownloadPath(game)),
-            _ => throw new NotImplementedException()
-        };
+        public static bool Exists(
+            FolderType type,
+            GameType game = GameType.None
+        ) =>
+            type switch
+            {
+                FolderType.Data
+                    => FsProvider.Exists(PathResolver.DataPath(game)),
+                FolderType.Mods
+                    => FsProvider.Exists(PathResolver.ModPath(game)),
+                FolderType.Downloads
+                    => FsProvider.Exists(PathResolver.DownloadPath(game)),
+                _ => throw new NotImplementedException()
+            };
     }
 }

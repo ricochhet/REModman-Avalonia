@@ -24,29 +24,51 @@ namespace REMod.Core.Utils
 
             foreach (Process process in processlist)
             {
-                if (process.ProcessName.Equals(name, StringComparison.CurrentCultureIgnoreCase)) return process.Id;
+                if (
+                    process.ProcessName.Equals(
+                        name,
+                        StringComparison.CurrentCultureIgnoreCase
+                    )
+                )
+                    return process.Id;
             }
 
             return 0;
         }
 
-        public static string GetProcPath(int procId) => Process.GetProcessById(procId).MainModule.FileName;
-        public static string GetProcPath(GameType type) => Process.GetProcessById(GetProcIdFromName(type)).MainModule.FileName;
-        public static string GetProcPath(string procName) => Process.GetProcessById(GetProcIdFromName(procName)).MainModule.FileName;
-        public static int GetProcIdFromName(GameType type) => GetProcIdFromName(GameTypeResolver.ProcessName(type));
-        public static bool IsProcRunning(GameType type) => GetProcIdFromName(type) != 0;
+        public static string GetProcPath(int procId) =>
+            Process.GetProcessById(procId).MainModule.FileName;
 
-        public static void OpenProcess(string fileName, string command, string workingDir)
+        public static string GetProcPath(GameType type) =>
+            Process.GetProcessById(GetProcIdFromName(type)).MainModule.FileName;
+
+        public static string GetProcPath(string procName) =>
+            Process
+                .GetProcessById(GetProcIdFromName(procName))
+                .MainModule.FileName;
+
+        public static int GetProcIdFromName(GameType type) =>
+            GetProcIdFromName(GameTypeResolver.ProcessName(type));
+
+        public static bool IsProcRunning(GameType type) =>
+            GetProcIdFromName(type) != 0;
+
+        public static void OpenProcess(
+            string fileName,
+            string command,
+            string workingDir
+        )
         {
-            ProcessStartInfo processStartInfo = new(fileName, "-c \" " + command + " \"")
-            {
-                WorkingDirectory = workingDir,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                RedirectStandardInput = true,
-                UseShellExecute = false,
-                CreateNoWindow = true
-            };
+            ProcessStartInfo processStartInfo =
+                new(fileName, "-c \" " + command + " \"")
+                {
+                    WorkingDirectory = workingDir,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    RedirectStandardInput = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                };
 
             Process process = Process.Start(processStartInfo);
             process.WaitForExit();

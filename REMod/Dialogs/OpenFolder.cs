@@ -14,9 +14,17 @@ namespace REMod.Dialogs
         private readonly OpenFolderDialog dialogWindow;
         public TaskCompletionSource<bool> Confirmed = new();
 
-        public OpenFolder(string title, GameType selectedGameType, string selectedGamePath, Window window)
+        public OpenFolder(
+            string title,
+            GameType selectedGameType,
+            string selectedGamePath,
+            Window window
+        )
         {
-            dialogWindow = new OpenFolderDialog(selectedGameType, selectedGamePath)
+            dialogWindow = new OpenFolderDialog(
+                selectedGameType,
+                selectedGamePath
+            )
             {
                 Title = title
             };
@@ -37,7 +45,8 @@ namespace REMod.Dialogs
             dialogWindow.Show();
         }
 
-        private void Close(object? sender, EventArgs e) {
+        private void Close(object? sender, EventArgs e)
+        {
             mainWindow.IsEnabled = true;
             dialogWindow.Close();
         }

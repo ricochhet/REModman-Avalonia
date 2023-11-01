@@ -14,7 +14,14 @@ namespace REMod.Core.Manager
     {
         public static void Save(SettingsData settingsData)
         {
-            FsProvider.WriteFile(Constants.DATA_FOLDER, Constants.SETTINGS_FILE, JsonSerializer.Serialize(settingsData, new JsonSerializerOptions { WriteIndented = true }));
+            FsProvider.WriteFile(
+                Constants.DATA_FOLDER,
+                Constants.SETTINGS_FILE,
+                JsonSerializer.Serialize(
+                    settingsData,
+                    new JsonSerializerOptions { WriteIndented = true }
+                )
+            );
         }
 
         private static SettingsData Load()
@@ -22,11 +29,25 @@ namespace REMod.Core.Manager
             SettingsData settingsData = new();
             if (Directory.Exists(Constants.DATA_FOLDER))
             {
-                if (File.Exists(Path.Combine(Constants.DATA_FOLDER, Constants.SETTINGS_FILE)))
+                if (
+                    File.Exists(
+                        Path.Combine(
+                            Constants.DATA_FOLDER,
+                            Constants.SETTINGS_FILE
+                        )
+                    )
+                )
                 {
-                    byte[] bytes = FsProvider.ReadFile(Path.Combine(Constants.DATA_FOLDER, Constants.SETTINGS_FILE));
+                    byte[] bytes = FsProvider.ReadFile(
+                        Path.Combine(
+                            Constants.DATA_FOLDER,
+                            Constants.SETTINGS_FILE
+                        )
+                    );
                     string file = FsProvider.UnkBytesToStr(bytes);
-                    settingsData = JsonSerializer.Deserialize<SettingsData>(file);
+                    settingsData = JsonSerializer.Deserialize<SettingsData>(
+                        file
+                    );
                 }
             }
 
@@ -49,7 +70,12 @@ namespace REMod.Core.Manager
             if (FsProvider.Exists(PathResolver.SettingsPath))
             {
                 SettingsData settingsData = Load();
-                if (settingsData.GamePaths.TryGetValue(type.ToString(), out string value))
+                if (
+                    settingsData.GamePaths.TryGetValue(
+                        type.ToString(),
+                        out string value
+                    )
+                )
                 {
                     return Path.GetDirectoryName(value);
                 }
@@ -72,13 +98,19 @@ namespace REMod.Core.Manager
 
         public static void SaveGamePath(GameType type)
         {
-            if (ProcessHelper.IsProcRunning(type) && FsProvider.Exists(PathResolver.SettingsPath))
+            if (
+                ProcessHelper.IsProcRunning(type)
+                && FsProvider.Exists(PathResolver.SettingsPath)
+            )
             {
                 SettingsData settingsData = Load();
                 if (!settingsData.GamePaths.ContainsKey(type.ToString()))
                 {
                     LogBase.Info($"Saving game path for {type}.");
-                    settingsData.GamePaths.Add(type.ToString(), ProcessHelper.GetProcPath(type).ToString());
+                    settingsData.GamePaths.Add(
+                        type.ToString(),
+                        ProcessHelper.GetProcPath(type).ToString()
+                    );
                 }
 
                 Save(settingsData);

@@ -18,7 +18,12 @@ namespace REMod.Core.Plugins.Murmur3
                     switch (array.Length)
                     {
                         case 4:
-                            num2 = (uint)(array[0] | array[1] << 8 | array[2] << 16 | array[3] << 24);
+                            num2 = (uint)(
+                                array[0]
+                                | array[1] << 8
+                                | array[2] << 16
+                                | array[3] << 24
+                            );
                             num2 *= 3432918353u;
                             num2 = Rotl32(num2, 15);
                             num2 *= 461845907;
@@ -27,7 +32,9 @@ namespace REMod.Core.Plugins.Murmur3
                             num = num * 5 + 3864292196u;
                             break;
                         case 3:
-                            num2 = (uint)(array[0] | array[1] << 8 | array[2] << 16);
+                            num2 = (uint)(
+                                array[0] | array[1] << 8 | array[2] << 16
+                            );
                             num2 *= 3432918353u;
                             num2 = Rotl32(num2, 15);
                             num2 *= 461845907;
